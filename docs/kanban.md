@@ -20,7 +20,7 @@ kanban
     card19[Research accessibility optimization feasibility]
     card20[Deploy via Github Pages]
   stage2[In Progress]
-    card1[Set up Astro environment]
     card2[Set up Supabase environment]
   stage3[Done]
+    card1[Set up Astro environment]
 ```
