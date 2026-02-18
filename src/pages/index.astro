@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import Projects from '../components/Projects.astro';
@@ -15,7 +16,7 @@ import Footer from '../components/Footer.astro';
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Portfolio</title>
 	</head>
-	<body>
+	<body class="bg-gray-900 text-white min-h-screen">
 		<Navbar />
 		<main>
 			<Hero />
