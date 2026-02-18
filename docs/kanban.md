@@ -17,9 +17,10 @@ kanban
     card23[Optimize resposiveness]
     card20[Deploy via Github Pages]
   stage2[In Progress]
-    card5[Implement placeholder sections and components]
+    card24[Set up TailwindCSS]
     card6[Implement final Navbar component]
     card7[Implement final Hero section]
   stage3[Done]
     card1[Set up Astro environment]
+    card5[Implement placeholder sections and components]
 ```
