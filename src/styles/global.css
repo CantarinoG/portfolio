@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Inter:wght@400..900&display=swap");
+
+@theme {
+  --font-heading: "Syne", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --font-sans: "Inter", sans-serif;
+}
