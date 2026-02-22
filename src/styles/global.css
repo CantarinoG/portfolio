@@ -13,6 +13,10 @@
 
 @layer base {
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   html,
   body {
     @apply transition-colors duration-500 ease-in-out;

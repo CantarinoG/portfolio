@@ -32,3 +32,42 @@ import projects from "../data/projects.json";
     }
   </div>
 </section>
+
+<script>
+  function setupReveal() {
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add a small delay based on index if we can, but since these are classes,
+          // let's just trigger them and let CSS handle the transition.
+          entry.target.classList.remove(
+            "opacity-0",
+            "translate-y-12",
+            "scale-95"
+          );
+          entry.target.classList.add(
+            "opacity-100",
+            "translate-y-0",
+            "scale-100"
+          );
+          // Once animated, we don't need to observe it anymore
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const revealItems = document.querySelectorAll(".reveal-item");
+    revealItems.forEach((item) => observer.observe(item));
+  }
+
+  // Run on initial load
+  setupReveal();
+
+  // Support Astro View Transitions
+  document.addEventListener("astro:page-load", setupReveal);
+</script>
