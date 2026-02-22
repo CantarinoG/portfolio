@@ -1,9 +1,6 @@
 ```mermaid
 kanban
   stage1[Backlog]
-    card22[Implement JSON file for project management]
-    card10[Implement skeleton for loading projects]
-    card11[Implement final Projects section]
     card12[Implement final Contact section]
     card13[Research AI chatbot feasibility]
     card14[Implement final Footer component]
@@ -17,6 +14,9 @@ kanban
     card20[Deploy via Github Pages]
   stage2[In Progress]
     card8[Implement final Project component]
+    card22[Implement JSON file for project management]
+    card11[Implement final Projects section]
+    card10[Implement skeleton for loading projects]
   stage3[Done]
     card1[Set up Astro environment]
     card24[Set up TailwindCSS]
