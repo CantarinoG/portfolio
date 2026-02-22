@@ -1,42 +1,60 @@
 [
     {
         "title": "Flashcard Pets",
+        "description": "A web application that allows users to create and manage flashcards for learning purposes. Users can create decks of flashcards, add flashcards to decks, and review flashcards in a quiz format. The user gains experience points and gold coins for each correct answer, which can be used to purchase and upgrade virtual pets. The pets provide bonuses and the player unlocks rarer pets as they play it, which provide even better bonuses.",
         "imageSrc": "flashcard_pets.png",
         "hoverImages": [
             "flashcard_pets.png"
         ],
-        "href": "#project-1",
-        "repoUrl": "#",
-        "demoUrl": "#"
+        "technologies": [
+            "Flutter",
+            "Dart",
+            "Firebase"
+        ],
+        "href": "#flashcard_pets",
+        "repoUrl": "https://github.com/CantarinoG/flashcard-pets",
+        "demoUrl": ""
     },
     {
         "title": "Coming soon...",
+        "description": "",
         "imageSrc": "",
         "hoverImages": [
             ""
         ],
-        "href": "#project-1",
-        "repoUrl": "#",
-        "demoUrl": "#"
+        "technologies": [
+            ""
+        ],
+        "href": "#",
+        "repoUrl": "",
+        "demoUrl": ""
     },
     {
         "title": "Coming soon...",
+        "description": "",
         "imageSrc": "",
         "hoverImages": [
             ""
         ],
-        "href": "#project-1",
-        "repoUrl": "#",
-        "demoUrl": "#"
+        "technologies": [
+            ""
+        ],
+        "href": "#",
+        "repoUrl": "",
+        "demoUrl": ""
     },
     {
         "title": "Coming soon...",
+        "description": "",
         "imageSrc": "",
         "hoverImages": [
             ""
         ],
-        "href": "#project-1",
-        "repoUrl": "#",
-        "demoUrl": "#"
+        "technologies": [
+            ""
+        ],
+        "href": "#",
+        "repoUrl": "",
+        "demoUrl": ""
     }
 ]
