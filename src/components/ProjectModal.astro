@@ -72,7 +72,7 @@
                 </p>
 
                 <h4
-                    class="font-heading font-bold text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3"
+                    class="font-heading font-bold text-xs uppercase tracking-widest text-blue-600 dark:text-blue-500 mb-3"
                 >
                     Technologies
                 </h4>
@@ -93,12 +93,12 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
                 <a
                     href="#"
                     id="modal-repo-link"
                     target="_blank"
-                    class="rounded-full bg-white dark:bg-gray-800 px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-50 dark:border-blue-900/20 text-center"
+                    class="flex-1 rounded-full bg-blue-600 dark:bg-white px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white dark:text-blue-600 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-600 dark:border-white text-center"
                 >
                     Visit Repo
                 </a>
@@ -106,7 +106,7 @@
                     href="#"
                     id="modal-demo-link"
                     target="_blank"
-                    class="rounded-full bg-white dark:bg-gray-800 px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-50 dark:border-blue-900/20 text-center"
+                    class="flex-1 rounded-full bg-blue-600 dark:bg-white px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white dark:text-blue-600 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-600 dark:border-white text-center"
                 >
                     Visit Demo
                 </a>
@@ -121,6 +121,8 @@
     const content = document.getElementById("modal-content");
     const closeBtn = document.getElementById("close-modal");
     const titleEl = document.getElementById("modal-title");
+    const descriptionEl = document.querySelector("#modal-content p");
+    const tagsContainer = document.getElementById("modal-tags");
     const repoLinkEl = document.getElementById(
         "modal-repo-link"
     ) as HTMLAnchorElement;
@@ -133,13 +135,49 @@
         href: string;
         repoUrl: string;
         demoUrl: string;
+        description: string;
+        technologies: string[];
     }) {
-        if (!modal || !content || !titleEl || !repoLinkEl || !demoLinkEl)
+        if (
+            !modal ||
+            !content ||
+            !titleEl ||
+            !repoLinkEl ||
+            !demoLinkEl ||
+            !descriptionEl ||
+            !tagsContainer
+        )
             return;
 
         titleEl.textContent = data.title;
-        repoLinkEl.href = data.repoUrl;
-        demoLinkEl.href = data.demoUrl;
+        descriptionEl.textContent =
+            data.description || "No description available.";
+
+        if (data.repoUrl && data.repoUrl !== "#" && data.repoUrl !== "") {
+            repoLinkEl.href = data.repoUrl;
+            repoLinkEl.classList.remove("hidden");
+        } else {
+            repoLinkEl.classList.add("hidden");
+        }
+
+        if (data.demoUrl && data.demoUrl !== "#" && data.demoUrl !== "") {
+            demoLinkEl.href = data.demoUrl;
+            demoLinkEl.classList.remove("hidden");
+        } else {
+            demoLinkEl.classList.add("hidden");
+        }
+
+        // Update technology tags
+        tagsContainer.innerHTML = "";
+        if (data.technologies && data.technologies.length > 0) {
+            data.technologies.forEach((tech) => {
+                const tag = document.createElement("span");
+                tag.className =
+                    "px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase";
+                tag.textContent = tech;
+                tagsContainer.appendChild(tag);
+            });
+        }
 
         modal.classList.remove("opacity-0", "pointer-events-none");
         modal.classList.add("opacity-100");

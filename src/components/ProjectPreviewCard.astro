@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 
 interface Props {
     title: string;
+    description?: string;
+    technologies?: string[];
     imageSrc?: string;
     hoverImages?: string[];
     href: string;
@@ -12,6 +14,8 @@ interface Props {
 
 const {
     title,
+    description = "",
+    technologies = [],
     imageSrc,
     hoverImages = [],
     href,
@@ -35,6 +39,8 @@ if (imagePath && !images[imagePath]) {
     data-slideshow-count={hoverImages.length}
     data-repo-url={repoUrl}
     data-demo-url={demoUrl}
+    data-description={description}
+    data-technologies={JSON.stringify(technologies)}
     class="project-card reveal-item group relative block aspect-square w-full overflow-hidden bg-gray-200 dark:bg-gray-800 opacity-0 translate-y-12 scale-95 transition-all duration-1000 ease-out hover:z-50 hover:scale-105 hover:shadow-2xl"
 >
     {/* Default Image */}
@@ -122,10 +128,21 @@ if (imagePath && !images[imagePath]) {
                 const href = card.getAttribute("href") || "#";
                 const repoUrl = card.getAttribute("data-repo-url") || "#";
                 const demoUrl = card.getAttribute("data-demo-url") || "#";
+                const description = card.getAttribute("data-description") || "";
+                const technologies = JSON.parse(
+                    card.getAttribute("data-technologies") || "[]"
+                );
 
                 window.dispatchEvent(
                     new CustomEvent("open-project-modal", {
-                        detail: { title, href, repoUrl, demoUrl },
+                        detail: {
+                            title,
+                            href,
+                            repoUrl,
+                            demoUrl,
+                            description,
+                            technologies,
+                        },
                     })
                 );
             });

@@ -25,6 +25,8 @@ import projects from "../data/projects.json";
       projects.map((project) => (
         <ProjectPreviewCard
           title={project.title}
+          description={project.description}
+          technologies={project.technologies}
           href={project.href}
           imageSrc={project.imageSrc}
           hoverImages={project.hoverImages}
