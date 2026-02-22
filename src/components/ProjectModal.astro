@@ -15,6 +15,9 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 <div
     id="project-modal"
     class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
 >
     <!-- Backdrop -->
     <div
@@ -30,7 +33,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     >
         <button
             id="close-modal"
-            class="absolute top-6 right-6 z-30 p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+            class="absolute top-6 right-6 z-30 p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-white"
+            aria-label="Close modal"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +65,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
             <!-- Carousel Controls -->
             <button
                 id="prev-slide"
-                class="absolute left-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg"
+                class="absolute left-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+                aria-label="Previous slide"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +84,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
             </button>
             <button
                 id="next-slide"
-                class="absolute right-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg"
+                class="absolute right-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+                aria-label="Next slide"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -190,6 +196,9 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
     let currentSlide = 0;
     let totalSlides = 0;
+    let lastFocusedElement: HTMLElement | null = null;
+    const focusableElementsSelector =
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
     function updateCarousel() {
         if (!carouselTrack) return;
@@ -229,6 +238,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
             !dotsContainer
         )
             return;
+
+        lastFocusedElement = document.activeElement as HTMLElement;
 
         titleEl.textContent = data.title;
         descriptionEl.textContent =
@@ -274,6 +285,12 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
             data.images.forEach((imgName, idx) => {
                 const slide = document.createElement("div");
                 slide.className = "w-full h-full flex-shrink-0 relative";
+                slide.setAttribute("role", "group");
+                slide.setAttribute("aria-roledescription", "slide");
+                slide.setAttribute(
+                    "aria-label",
+                    `${idx + 1} of ${totalSlides}`
+                );
 
                 const img = document.createElement("img");
                 // Use the injected project assets map to get the processed URL
@@ -281,7 +298,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                     ? (window as any).PROJECT_ASSETS[imgName]
                     : `/src/assets/${imgName}`;
                 img.src = assetUrl;
-                img.alt = `${data.title} slide ${idx}`;
+                img.alt = `${data.title} slide ${idx + 1}`;
                 img.className = "w-full h-full object-cover";
 
                 slide.appendChild(img);
@@ -289,9 +306,10 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
                 // Add dot
                 const dot = document.createElement("button");
-                dot.className = `carousel-dot h-2 transition-all duration-300 rounded-full ${
+                dot.className = `carousel-dot h-2 transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 ${
                     idx === 0 ? "bg-blue-600 w-6" : "bg-white/40 w-2"
                 }`;
+                dot.setAttribute("aria-label", `Go to slide ${idx + 1}`);
                 dot.addEventListener("click", () => {
                     currentSlide = idx;
                     updateCarousel();
@@ -316,6 +334,16 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
         content.classList.remove("scale-95");
         content.classList.add("scale-100");
         document.body.style.overflow = "hidden";
+
+        // Focus management
+        setTimeout(() => {
+            const focusable = content.querySelectorAll(
+                focusableElementsSelector
+            );
+            if (focusable.length > 0) {
+                (focusable[0] as HTMLElement).focus();
+            }
+        }, 300);
     }
 
     function closeModal() {
@@ -325,7 +353,42 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
         content.classList.remove("scale-100");
         content.classList.add("scale-95");
         document.body.style.overflow = "";
+
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+        }
     }
+
+    // Modal Events & Focus Trapping
+    window.addEventListener("keydown", (e) => {
+        if (modal?.classList.contains("opacity-0")) return;
+
+        if (e.key === "Tab") {
+            const focusable = content!.querySelectorAll(
+                focusableElementsSelector
+            );
+            const first = focusable[0] as HTMLElement;
+            const last = focusable[focusable.length - 1] as HTMLElement;
+
+            if (e.shiftKey) {
+                // Shift + Tab
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                // Tab
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        }
+
+        if (e.key === "Escape") closeModal();
+        if (e.key === "ArrowLeft") prevBtn?.click();
+        if (e.key === "ArrowRight") nextBtn?.click();
+    });
 
     prevBtn?.addEventListener("click", () => {
         currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
@@ -342,11 +405,4 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     window.addEventListener("open-project-modal", (e: any) =>
         openModal(e.detail)
     );
-    window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
-        if (e.key === "ArrowLeft" && !modal?.classList.contains("opacity-0"))
-            prevBtn?.click();
-        if (e.key === "ArrowRight" && !modal?.classList.contains("opacity-0"))
-            nextBtn?.click();
-    });
 </script>
