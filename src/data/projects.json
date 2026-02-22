@@ -1,16 +1,21 @@
 [
     {
         "title": "Flashcard Pets",
-        "description": "A web application that allows users to create and manage flashcards for learning purposes. Users can create decks of flashcards, add flashcards to decks, and review flashcards in a quiz format. The user gains experience points and gold coins for each correct answer, which can be used to purchase and upgrade virtual pets. The pets provide bonuses and the player unlocks rarer pets as they play it, which provide even better bonuses.",
-        "imageSrc": "flashcard_pets.png",
+        "description": "Flashcard Pets is a gamified educational mobile application that transforms traditional studying into an engaging pet-collection experience. By leveraging a custom implementation of the SM2 spaced repetition algorithm, the app ensures optimal knowledge retention while rewarding consistent study habits. Users earn in-game coins to adopt and evolve unique digital pets, turning effective learning into a rewarding daily habit.",
+        "imageSrc": "flashcard-pets/0.png",
         "hoverImages": [
-            "flashcard_pets.png",
-            "flashcard_pets.png"
+            "flashcard-pets/0.png",
+            "flashcard-pets/1.jpg",
+            "flashcard-pets/2.jpg",
+            "flashcard-pets/3.jpg",
+            "flashcard-pets/4.jpg",
+            "flashcard-pets/5.jpg"
         ],
         "technologies": [
-            "Flutter",
             "Dart",
-            "Firebase"
+            "Flutter",
+            "Firebase",
+            "SQLite"
         ],
         "href": "#flashcard_pets",
         "repoUrl": "https://github.com/CantarinoG/flashcard-pets",

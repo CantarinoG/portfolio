@@ -7,7 +7,7 @@ interface ImageMetadata {
 }
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/*.{jpeg,jpg,png,gif}",
+    "/src/assets/**/*.{jpeg,jpg,png,gif}",
     { eager: true }
 );
 ---
@@ -165,7 +165,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     define:vars={{
         imageMap: Object.fromEntries(
             Object.entries(images).map(([path, data]) => [
-                path.split("/").pop(),
+                path.replace("/src/assets/", ""),
                 data.default.src,
             ])
         ),

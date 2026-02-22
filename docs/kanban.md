@@ -2,11 +2,9 @@
 kanban
   stage1[Backlog]
     card18[Research performance optimization feasibility]
-    card19[Research accessibility optimization feasibility]
-    card21[Research test feasibility]
     card23[Optimize resposiveness]
-    card25[Add projects]
     card20[Deploy via Github Pages]
+    card29[Add README]
   stage2[In Progress]
   stage3[Done]
     card16[Implement animations]
@@ -25,4 +23,6 @@ kanban
     card28[Fix navbar indicator and anchor links]
     card27[Implement Project Card component]
     card17[Research SEO optimization feasibility]
+    card19[Research accessibility optimization feasibility]
+    card25[Add projects]
 ```
