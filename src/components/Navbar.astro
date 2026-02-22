@@ -7,19 +7,19 @@
   <div class="flex gap-10">
     <a
       href="#home"
-      class="font-heading uppercase text-[13px] font-bold text-blue-600 border-b-2 border-blue-600 pb-0.5 tracking-wide transition-colors duration-500"
+      class="nav-link font-heading uppercase text-[13px] font-bold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 tracking-wide border-b-2 border-transparent pb-0.5 mt-0.5"
     >
       Home
     </a>
     <a
       href="#projects"
-      class="font-heading uppercase text-[13px] font-bold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-500 tracking-wide"
+      class="nav-link font-heading uppercase text-[13px] font-bold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 tracking-wide border-b-2 border-transparent pb-0.5 mt-0.5"
     >
       Projects
     </a>
     <a
       href="#contact"
-      class="font-heading uppercase text-[13px] font-bold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-500 tracking-wide"
+      class="nav-link font-heading uppercase text-[13px] font-bold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 tracking-wide border-b-2 border-transparent pb-0.5 mt-0.5"
     >
       Contact
     </a>
@@ -86,4 +86,48 @@
   document
     .getElementById("theme-toggle")
     ?.addEventListener("click", handleToggleClick);
+
+  // Scroll Spy Logic
+  function setupScrollSpy() {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    const options = {
+      threshold: 0.1, // Trigger as soon as 10% is visible in the margin area
+      rootMargin: "-45% 0px -45% 0px", // Detect sections crossing the middle of the screen
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+
+          navLinks.forEach((link) => {
+            const href = link.getAttribute("href");
+            if (href === `#${id}`) {
+              link.classList.add("text-blue-600", "border-blue-600");
+              link.classList.remove(
+                "text-gray-900",
+                "dark:text-gray-100",
+                "border-transparent"
+              );
+            } else {
+              link.classList.remove("text-blue-600", "border-blue-600");
+              link.classList.add(
+                "text-gray-900",
+                "dark:text-gray-100",
+                "border-transparent"
+              );
+            }
+          });
+        }
+      });
+    }, options);
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  // Run on initial load and view transitions
+  setupScrollSpy();
+  document.addEventListener("astro:page-load", setupScrollSpy);
 </script>
