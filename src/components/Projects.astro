@@ -1,5 +1,6 @@
 ---
 import ProjectPreviewCard from "./ProjectPreviewCard.astro";
+import ProjectModal from "./ProjectModal.astro";
 import projects from "../data/projects.json";
 ---
 
@@ -31,6 +32,8 @@ import projects from "../data/projects.json";
       ))
     }
   </div>
+
+  <ProjectModal />
 </section>
 
 <script>

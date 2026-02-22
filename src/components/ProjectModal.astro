@@ -1,0 +1,149 @@
+---
+---
+
+<div
+    id="project-modal"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
+>
+    <!-- Backdrop -->
+    <div
+        class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        id="modal-backdrop"
+    >
+    </div>
+
+    <!-- Modal Content -->
+    <div
+        class="relative w-full max-w-4xl bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300"
+        id="modal-content"
+    >
+        <button
+            id="close-modal"
+            class="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 transition-colors"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-gray-800 dark:text-gray-200"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="flex flex-col md:flex-row h-full">
+            <!-- Image Section -->
+            <div
+                class="md:w-3/5 bg-gray-100 dark:bg-gray-800 flex items-center justify-center min-h-[300px]"
+            >
+                <div
+                    id="modal-image-container"
+                    class="w-full h-full flex items-center justify-center"
+                >
+                    <span
+                        class="text-gray-400 font-heading uppercase font-black text-4xl opacity-20"
+                        >Project Content</span
+                    >
+                </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="md:w-2/5 p-8 flex flex-col">
+                <h2
+                    id="modal-title"
+                    class="font-heading font-black text-3xl text-blue-600 dark:text-blue-500 uppercase tracking-tighter mb-4"
+                >
+                    Project Title
+                </h2>
+
+                <div class="flex-grow">
+                    <p
+                        class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed"
+                    >
+                        This is a placeholder for the project description.
+                        Detailed information about the project, its goals, and
+                        the technologies used will appear here.
+                    </p>
+
+                    <h4
+                        class="font-heading font-bold text-xs uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2"
+                    >
+                        Technologies
+                    </h4>
+                    <div class="flex flex-wrap gap-2 mb-8" id="modal-tags">
+                        <span
+                            class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full uppercase"
+                            >React</span
+                        >
+                        <span
+                            class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full uppercase"
+                            >Tailwind</span
+                        >
+                        <span
+                            class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full uppercase"
+                            >Astro</span
+                        >
+                    </div>
+                </div>
+
+                <a
+                    href="#"
+                    id="modal-link"
+                    class="mt-auto inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-heading font-bold uppercase tracking-wider rounded-lg transition-colors"
+                >
+                    Visit Website
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById("project-modal");
+    const backdrop = document.getElementById("modal-backdrop");
+    const content = document.getElementById("modal-content");
+    const closeBtn = document.getElementById("close-modal");
+    const titleEl = document.getElementById("modal-title");
+    const linkEl = document.getElementById("modal-link") as HTMLAnchorElement;
+
+    function openModal(data: { title: string; href: string }) {
+        if (!modal || !content || !titleEl || !linkEl) return;
+
+        titleEl.textContent = data.title;
+        linkEl.href = data.href;
+
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modal.classList.add("opacity-100");
+        content.classList.remove("scale-95");
+        content.classList.add("scale-100");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+        if (!modal || !content) return;
+
+        modal.classList.remove("opacity-100");
+        modal.classList.add("opacity-0", "pointer-events-none");
+        content.classList.remove("scale-100");
+        content.classList.add("scale-95");
+        document.body.style.overflow = "";
+    }
+
+    backdrop?.addEventListener("click", closeModal);
+    closeBtn?.addEventListener("click", closeModal);
+
+    // Listen for custom event
+    window.addEventListener("open-project-modal", (e: any) => {
+        openModal(e.detail);
+    });
+
+    // Close on Escape
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+    });
+</script>
