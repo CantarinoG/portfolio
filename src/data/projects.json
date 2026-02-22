@@ -5,7 +5,9 @@
         "hoverImages": [
             "flashcard_pets.png"
         ],
-        "href": "#project-1"
+        "href": "#project-1",
+        "repoUrl": "#",
+        "demoUrl": "#"
     },
     {
         "title": "Coming soon...",
@@ -13,7 +15,9 @@
         "hoverImages": [
             ""
         ],
-        "href": "#project-1"
+        "href": "#project-1",
+        "repoUrl": "#",
+        "demoUrl": "#"
     },
     {
         "title": "Coming soon...",
@@ -21,7 +25,9 @@
         "hoverImages": [
             ""
         ],
-        "href": "#project-1"
+        "href": "#project-1",
+        "repoUrl": "#",
+        "demoUrl": "#"
     },
     {
         "title": "Coming soon...",
@@ -29,6 +35,8 @@
         "hoverImages": [
             ""
         ],
-        "href": "#project-1"
+        "href": "#project-1",
+        "repoUrl": "#",
+        "demoUrl": "#"
     }
 ]
