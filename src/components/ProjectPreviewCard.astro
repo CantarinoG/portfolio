@@ -6,9 +6,18 @@ interface Props {
     imageSrc?: string;
     hoverImages?: string[];
     href: string;
+    repoUrl?: string;
+    demoUrl?: string;
 }
 
-const { title, imageSrc, hoverImages = [], href } = Astro.props;
+const {
+    title,
+    imageSrc,
+    hoverImages = [],
+    href,
+    repoUrl = "#",
+    demoUrl = "#",
+} = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/*.{jpeg,jpg,png,gif}",
@@ -24,6 +33,8 @@ if (imagePath && !images[imagePath]) {
 <a
     href={href}
     data-slideshow-count={hoverImages.length}
+    data-repo-url={repoUrl}
+    data-demo-url={demoUrl}
     class="project-card reveal-item group relative block aspect-square w-full overflow-hidden bg-gray-200 dark:bg-gray-800 opacity-0 translate-y-12 scale-95 transition-all duration-1000 ease-out hover:z-50 hover:scale-105 hover:shadow-2xl"
 >
     {/* Default Image */}
@@ -109,10 +120,12 @@ if (imagePath && !images[imagePath]) {
                 e.preventDefault();
                 const title = card.querySelector("h3")?.textContent || "";
                 const href = card.getAttribute("href") || "#";
+                const repoUrl = card.getAttribute("data-repo-url") || "#";
+                const demoUrl = card.getAttribute("data-demo-url") || "#";
 
                 window.dispatchEvent(
                     new CustomEvent("open-project-modal", {
-                        detail: { title, href },
+                        detail: { title, href, repoUrl, demoUrl },
                     })
                 );
             });
