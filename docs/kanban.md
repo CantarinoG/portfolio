@@ -1,7 +1,6 @@
 ```mermaid
 kanban
   stage1[Backlog]
-    card8[Implement final Project component]
     card22[Implement JSON file for project management]
     card10[Implement skeleton for loading projects]
     card11[Implement final Projects section]
@@ -17,10 +16,11 @@ kanban
     card23[Optimize resposiveness]
     card20[Deploy via Github Pages]
   stage2[In Progress]
-    card6[Implement final Navbar component]
-    card7[Implement final Hero section]
+    card8[Implement final Project component]
   stage3[Done]
     card1[Set up Astro environment]
     card24[Set up TailwindCSS]
     card5[Implement placeholder sections and components]
+    card6[Implement final Navbar component]
+    card7[Implement final Hero section]
 ```
