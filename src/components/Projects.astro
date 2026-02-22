@@ -50,8 +50,6 @@ import projects from "../data/projects.json";
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Add a small delay based on index if we can, but since these are classes,
-          // let's just trigger them and let CSS handle the transition.
           entry.target.classList.remove(
             "opacity-0",
             "translate-y-12",
@@ -72,9 +70,7 @@ import projects from "../data/projects.json";
     revealItems.forEach((item) => observer.observe(item));
   }
 
-  // Run on initial load
   setupReveal();
 
-  // Support Astro View Transitions
   document.addEventListener("astro:page-load", setupReveal);
 </script>

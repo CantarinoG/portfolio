@@ -5,7 +5,6 @@ kanban
     card20[Deploy via Github Pages]
     card29[Add README]
   stage2[In Progress]
-    card23[Optimize resposiveness]
   stage3[Done]
     card16[Implement animations]
     card1[Set up Astro environment]
@@ -25,4 +24,5 @@ kanban
     card17[Research SEO optimization feasibility]
     card19[Research accessibility optimization feasibility]
     card25[Add projects]
+    card23[Optimize resposiveness]
 ```
