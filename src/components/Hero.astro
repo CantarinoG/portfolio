@@ -1,6 +1,53 @@
 ---
+import { Image } from "astro:assets";
+import heroImage from "../assets/hero.png";
 ---
-<section id="hero">
-  <h1>[Hero Section Placeholder]</h1>
-  <p>Welcome to my portfolio.</p>
+
+<section
+  id="hero"
+  class="relative w-full h-screen overflow-hidden flex items-center"
+>
+  <Image
+    src={heroImage}
+    alt="Hero Background"
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    loading="eager"
+  />
+
+  <div class="relative z-10 px-12 md:px-24 max-w-4xl">
+    <div
+      class="font-heading text-white text-5xl md:text-6xl font-bold mb-2 uppercase"
+    >
+      Hi, I am
+    </div>
+    <div
+      class="font-heading text-blue-100 text-7xl md:text-9xl font-black leading-none uppercase tracking-tighter"
+    >
+      Guilherme
+    </div>
+    <div
+      class="font-heading text-blue-100 text-7xl md:text-9xl font-black leading-none uppercase tracking-tighter"
+    >
+      Cantarino
+    </div>
+
+    <div class="flex flex-wrap gap-3 mt-8">
+      {
+        ["Web Systems", "Mobile Apps", "Automations"].map((term) => (
+          <span class="px-5 py-2 rounded-full border border-blue-100/30 bg-blue-100/10 text-blue-100 font-heading text-sm md:text-base font-bold uppercase tracking-wider backdrop-blur-sm">
+            {term}
+          </span>
+        ))
+      }
+    </div>
+
+    <div class="mt-12">
+      <a
+        href="#projects"
+        class="inline-block px-8 py-4 bg-blue-100 text-blue-900 font-heading font-bold uppercase tracking-widest rounded-lg hover:bg-white transition-colors duration-300 shadow-lg"
+      >
+        Find out more
+      </a>
+    </div>
+  </div>
 </section>
