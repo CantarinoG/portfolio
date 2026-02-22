@@ -5,41 +5,47 @@ import heroImage from "../assets/hero.png";
 
 <section
   id="home"
-  class="relative w-full h-screen overflow-hidden flex items-center"
+  class="relative w-full h-screen overflow-hidden flex items-center bg-[#0a0a0a]"
 >
   <Image
     src={heroImage}
     alt="Guilherme Cantarino - Professional Portrait"
-    class="absolute inset-0 w-full h-full object-cover z-0"
+    class="absolute inset-0 w-full h-full object-cover object-right md:object-center z-0"
     loading="eager"
   />
 
-  <div class="relative z-10 px-12 md:px-24 max-w-4xl">
+  <!-- Readability Overlay -->
+  <div
+    class="absolute inset-0 z-1 bg-gradient-to-r from-[#0a0a0a]/50 via-[#0a0a0a]/30 to-transparent md:from-[#0a0a0a]/30 md:via-transparent"
+  >
+  </div>
+
+  <div class="relative z-10 px-6 sm:px-12 md:px-24 max-w-4xl">
     <span
-      class="font-heading text-white text-5xl md:text-6xl font-bold mb-2 uppercase block"
+      class="font-heading text-white text-4xl sm:text-5xl md:text-6xl font-bold mb-2 uppercase block"
     >
       Hi, I am
     </span>
     <h1
-      class="font-heading text-white text-7xl md:text-9xl font-black leading-none uppercase tracking-tighter"
+      class="font-heading text-white text-6xl sm:text-7xl md:text-9xl font-black leading-none uppercase tracking-tighter"
     >
       Guilherme<br />Cantarino
     </h1>
 
-    <div class="flex flex-wrap gap-3 mt-8">
+    <div class="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-8">
       {
         ["Web Systems", "Mobile Apps", "Automations"].map((term) => (
-          <span class="px-5 py-2 rounded-full border border-blue-100/30 bg-blue-100/10 text-blue-100 font-heading text-sm md:text-base font-bold uppercase tracking-wider backdrop-blur-sm">
+          <span class="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full border border-blue-100/30 bg-blue-100/10 text-blue-100 font-heading text-xs sm:text-sm md:text-base font-bold uppercase tracking-wider backdrop-blur-sm">
             {term}
           </span>
         ))
       }
     </div>
 
-    <div class="mt-12">
+    <div class="mt-10 sm:mt-12">
       <a
         href="#projects"
-        class="group inline-flex items-center gap-2 px-8 py-3 bg-white text-blue-600 font-heading text-sm font-bold uppercase tracking-wider rounded-full hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+        class="group inline-flex items-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 bg-white text-blue-600 font-heading text-xs sm:text-sm font-bold uppercase tracking-wider rounded-full hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
       >
         Check my work
         <svg
