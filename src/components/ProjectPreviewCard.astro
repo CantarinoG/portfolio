@@ -1,0 +1,149 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    title: string;
+    imageSrc?: string;
+    hoverImages?: string[];
+    href: string;
+}
+
+const { title, imageSrc, hoverImages = [], href } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/*.{jpeg,jpg,png,gif}",
+    { eager: true }
+);
+const imagePath = imageSrc ? `/src/assets/${imageSrc}` : null;
+
+if (imagePath && !images[imagePath]) {
+    console.error(`Project image not found: ${imagePath}`);
+}
+---
+
+<a
+    href={href}
+    data-slideshow-count={hoverImages.length}
+    class="project-card group relative block aspect-square w-full overflow-hidden bg-gray-200 transition-all duration-500 ease-in-out hover:z-50 hover:scale-105 hover:shadow-2xl"
+>
+    {/* Default Image */}
+    <div
+        class="absolute inset-0 z-10 transition-opacity duration-300 group-hover:opacity-0"
+    >
+        {
+            imagePath && images[imagePath] ? (
+                <Image
+                    src={images[imagePath].default}
+                    alt={title}
+                    class="h-full w-full object-cover"
+                />
+            ) : (
+                <div class="flex h-full w-full items-center justify-center bg-blue-50 text-blue-200 font-heading font-black text-2xl uppercase p-4 text-center">
+                    {title}
+                </div>
+            )
+        }
+    </div>
+
+    {/* Hover Slideshow */}
+    <div
+        class="absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gray-200"
+    >
+        {
+            hoverImages.length > 0 ? (
+                <div class="slideshow-container relative h-full w-full">
+                    {hoverImages.map((img, index) => {
+                        const hoverPath = `/src/assets/${img}`;
+                        if (images[hoverPath]) {
+                            return (
+                                <Image
+                                    src={images[hoverPath].default}
+                                    alt={`${title} hover ${index}`}
+                                    class="slideshow-image absolute inset-0 h-full w-full object-cover transition-opacity duration-500 opacity-0"
+                                    style={{
+                                        opacity: index === 0 ? "1" : "0",
+                                        zIndex: index === 0 ? "1" : "0",
+                                    }}
+                                />
+                            );
+                        }
+                        return null;
+                    })}
+                </div>
+            ) : (
+                <div class="flex h-full w-full items-center justify-center bg-blue-600 text-white font-heading font-black text-2xl uppercase p-4 text-center">
+                    {title}
+                </div>
+            )
+        }
+    </div>
+
+    {/* Overlay Content */}
+    <div
+        class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 opacity-0 transition-all duration-300 group-hover:opacity-100 bg-black/40 px-4 text-center"
+    >
+        <h3
+            class="font-heading font-black text-2xl text-white uppercase tracking-tighter transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75"
+        >
+            {title}
+        </h3>
+        <span
+            class="rounded-full bg-white px-6 py-2 font-heading text-sm font-bold uppercase tracking-wider text-blue-600 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150"
+        >
+            Click for details
+        </span>
+    </div>
+</a>
+
+<script>
+    function setupSlideshows() {
+        const cards = document.querySelectorAll(".project-card");
+
+        cards.forEach((card) => {
+            const count = parseInt(
+                card.getAttribute("data-slideshow-count") || "0"
+            );
+            if (count <= 1) return;
+
+            const images = card.querySelectorAll(".slideshow-image");
+            let currentIndex = 0;
+            let interval: ReturnType<typeof setInterval> | null = null;
+
+            const startSlideshow = () => {
+                if (interval) return;
+                interval = setInterval(() => {
+                    // Hide current
+                    (images[currentIndex] as HTMLElement).style.opacity = "0";
+                    (images[currentIndex] as HTMLElement).style.zIndex = "0";
+
+                    // Show next
+                    currentIndex = (currentIndex + 1) % images.length;
+                    (images[currentIndex] as HTMLElement).style.opacity = "1";
+                    (images[currentIndex] as HTMLElement).style.zIndex = "1";
+                }, 1000);
+            };
+
+            const stopSlideshow = () => {
+                if (interval) {
+                    clearInterval(interval);
+                    interval = null;
+                }
+                // Reset to first image
+                images.forEach((img, idx) => {
+                    (img as HTMLElement).style.opacity = idx === 0 ? "1" : "0";
+                    (img as HTMLElement).style.zIndex = idx === 0 ? "1" : "0";
+                });
+                currentIndex = 0;
+            };
+
+            card.addEventListener("mouseenter", startSlideshow);
+            card.addEventListener("mouseleave", stopSlideshow);
+        });
+    }
+
+    // Run on initial load
+    setupSlideshows();
+
+    // Support View Transitions if enabled
+    document.addEventListener("astro:page-load", setupSlideshows);
+</script>

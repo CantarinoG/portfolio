@@ -1,9 +1,9 @@
 ---
-import ProjectCard from "./ProjectCard.astro";
+import ProjectPreviewCard from "./ProjectPreviewCard.astro";
 import projects from "../data/projects.json";
 ---
 
-<section id="projects" class="bg-gray-50 min-h-screen">
+<section id="projects" class="bg-gray-50">
   <div
     class="bg-white px-12 py-8 flex items-center border-b border-gray-100 min-h-[118px]"
   >
@@ -17,11 +17,11 @@ import projects from "../data/projects.json";
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
     {
       projects.map((project) => (
-        <ProjectCard
+        <ProjectPreviewCard
           title={project.title}
           href={project.href}
           imageSrc={project.imageSrc}
-          videoSrc={project.videoSrc}
+          hoverImages={project.hoverImages}
         />
       ))
     }
