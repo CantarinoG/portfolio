@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Web App One",
+        "imageSrc": "",
+        "videoSrc": "",
+        "href": "#project-1"
+    },
+    {
+        "title": "Mobile App Two",
+        "imageSrc": "",
+        "videoSrc": "",
+        "href": "#project-2"
+    },
+    {
+        "title": "Automation Three",
+        "imageSrc": "",
+        "videoSrc": "",
+        "href": "#project-3"
+    },
+    {
+        "title": "System Four",
+        "imageSrc": "",
+        "videoSrc": "",
+        "href": "#project-4"
+    },
+    {
+        "title": "Creative Five",
+        "imageSrc": "",
+        "videoSrc": "",
+        "href": "#project-5"
+    },
+    {
+        "title": "Future Project",
+        "imageSrc": "",
+        "videoSrc": "",
+        "href": "#project-6"
+    }
+]

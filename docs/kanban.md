@@ -14,7 +14,6 @@ kanban
     card20[Deploy via Github Pages]
   stage2[In Progress]
     card8[Implement final Project component]
-    card22[Implement JSON file for project management]
     card11[Implement final Projects section]
     card10[Implement skeleton for loading projects]
   stage3[Done]
@@ -23,4 +22,5 @@ kanban
     card5[Implement placeholder sections and components]
     card6[Implement final Navbar component]
     card7[Implement final Hero section]
+    card22[Implement JSON file for project management]
 ```
