@@ -3,12 +3,17 @@ import ProjectPreviewCard from "./ProjectPreviewCard.astro";
 import projects from "../data/projects.json";
 ---
 
-<section id="projects" class="bg-gray-50">
+<section
+  id="projects"
+  class="bg-gray-50 dark:bg-gray-900 transition-colors duration-500"
+>
   <div
-    class="bg-gray-50 px-12 py-8 flex items-center border-b border-gray-100 min-h-[118px]"
+    class="bg-gray-50 dark:bg-gray-900 px-12 py-8 flex items-center border-b border-gray-100 dark:border-gray-800 min-h-[118px] transition-colors duration-500"
   >
     <div class="leading-[0.8] tracking-tighter">
-      <div class="font-heading font-[800] text-[34px] text-blue-600 uppercase">
+      <div
+        class="font-heading font-[800] text-[34px] text-blue-600 dark:text-blue-500 uppercase"
+      >
         Projects
       </div>
     </div>

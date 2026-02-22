@@ -24,7 +24,7 @@ if (imagePath && !images[imagePath]) {
 <a
     href={href}
     data-slideshow-count={hoverImages.length}
-    class="project-card group relative block aspect-square w-full overflow-hidden bg-gray-200 transition-all duration-500 ease-in-out hover:z-50 hover:scale-105 hover:shadow-2xl"
+    class="project-card group relative block aspect-square w-full overflow-hidden bg-gray-200 dark:bg-gray-800 transition-all duration-500 ease-in-out hover:z-50 hover:scale-105 hover:shadow-2xl"
 >
     {/* Default Image */}
     <div
@@ -38,7 +38,7 @@ if (imagePath && !images[imagePath]) {
                     class="h-full w-full object-cover"
                 />
             ) : (
-                <div class="flex h-full w-full items-center justify-center bg-blue-50 text-blue-200 font-heading font-black text-2xl uppercase p-4 text-center">
+                <div class="flex h-full w-full items-center justify-center bg-blue-50 dark:bg-blue-900/20 text-blue-200 dark:text-blue-800 font-heading font-black text-2xl uppercase p-4 text-center">
                     {title}
                 </div>
             )
@@ -47,7 +47,7 @@ if (imagePath && !images[imagePath]) {
 
     {/* Hover Slideshow */}
     <div
-        class="absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gray-200"
+        class="absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gray-200 dark:bg-gray-800"
     >
         {
             hoverImages.length > 0 ? (
