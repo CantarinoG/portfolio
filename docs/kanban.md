@@ -8,7 +8,6 @@ kanban
     card25[Add projects]
     card20[Deploy via Github Pages]
   stage2[In Progress]
-    card17[Research SEO optimization feasibility]
   stage3[Done]
     card16[Implement animations]
     card1[Set up Astro environment]
@@ -25,4 +24,5 @@ kanban
     card15[Implement theme toggle feature]
     card28[Fix navbar indicator and anchor links]
     card27[Implement Project Card component]
+    card17[Research SEO optimization feasibility]
 ```

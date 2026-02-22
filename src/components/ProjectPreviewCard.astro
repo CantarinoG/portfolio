@@ -52,7 +52,7 @@ if (imagePath && !images[imagePath]) {
             imagePath && images[imagePath] ? (
                 <Image
                     src={images[imagePath].default}
-                    alt={title}
+                    alt={`Project showcase: ${title} - Guilherme Cantarino Portfolio`}
                     class="h-full w-full object-cover"
                 />
             ) : (
@@ -76,7 +76,9 @@ if (imagePath && !images[imagePath]) {
                             return (
                                 <Image
                                     src={images[hoverPath].default}
-                                    alt={`${title} hover ${index}`}
+                                    alt={`Screenshot: ${title} development process - Image ${
+                                        index + 1
+                                    }`}
                                     class="slideshow-image absolute inset-0 h-full w-full object-cover transition-opacity duration-500 opacity-0"
                                     style={{
                                         opacity: index === 0 ? "1" : "0",

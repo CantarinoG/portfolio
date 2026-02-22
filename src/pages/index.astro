@@ -11,10 +11,73 @@ import Footer from "../components/Footer.astro";
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Portfolio</title>
+		<title>Guilherme Cantarino | Software Engineer Portfolio</title>
+		<meta
+			name="description"
+			content="Guilherme Cantarino - Full Stack Developer specializing in building high-performance, scalable web applications with modern tech stacks."
+		/>
+		<meta
+			name="keywords"
+			content="Software Engineer, Full Stack Developer, Portfolio, React, Astro, Tailwind CSS, Guilherme Cantarino"
+		/>
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta
+			property="og:url"
+			content="https://cantarinog.github.io/portfolio/"
+		/>
+		<meta
+			property="og:title"
+			content="Guilherme Cantarino | Software Engineer Portfolio"
+		/>
+		<meta
+			property="og:description"
+			content="Full Stack Developer specializing in building high-performance, scalable web applications."
+		/>
+		<meta
+			property="og:image"
+			content="https://cantarinog.github.io/portfolio/og-image.png"
+		/>
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta
+			property="twitter:url"
+			content="https://cantarinog.github.io/portfolio/"
+		/>
+		<meta
+			property="twitter:title"
+			content="Guilherme Cantarino | Software Engineer Portfolio"
+		/>
+		<meta
+			property="twitter:description"
+			content="Full Stack Developer specializing in building high-performance, scalable web applications."
+		/>
+		<meta
+			property="twitter:image"
+			content="https://cantarinog.github.io/portfolio/og-image.png"
+		/>
+
+		<!-- Structured Data (JSON-LD) -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org/",
+				"@type": "Person",
+				name: "Guilherme Cantarino",
+				jobTitle: "Software Engineer",
+				url: "https://cantarinog.github.io/portfolio/",
+				sameAs: [
+					"https://github.com/CantarinoG",
+					"https://linkedin.com/in/guilherme-cantarino",
+				],
+				description:
+					"Full Stack Developer specializing in building high-performance web applications.",
+			})}
+		></script>
 		<script is:inline>
 			const theme = (() => {
 				if (
