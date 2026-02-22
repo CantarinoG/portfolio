@@ -1,4 +1,15 @@
 ---
+interface ImageMetadata {
+    src: string;
+    width: number;
+    height: number;
+    format: string;
+}
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/*.{jpeg,jpg,png,gif}",
+    { eager: true }
+);
 ---
 
 <div
@@ -19,7 +30,7 @@
     >
         <button
             id="close-modal"
-            class="absolute top-6 right-6 z-20 p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+            class="absolute top-6 right-6 z-30 p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -36,18 +47,61 @@
             </svg>
         </button>
 
-        <!-- Image Section -->
+        <!-- Image Carousel Section -->
         <div
-            class="md:w-3/5 bg-gray-50 dark:bg-gray-800 flex items-center justify-center min-h-[300px] md:min-h-full"
+            class="md:w-3/5 bg-gray-50 dark:bg-gray-800 relative group/carousel flex items-center justify-center min-h-[300px] md:min-h-full overflow-hidden"
         >
             <div
-                id="modal-image-container"
-                class="w-full h-full flex items-center justify-center relative"
+                id="modal-carousel-track"
+                class="absolute inset-0 flex transition-transform duration-500 ease-out"
             >
-                <span
-                    class="text-gray-400 font-heading uppercase font-black text-6xl opacity-10"
-                    >Project View</span
+                <!-- Images will be injected here -->
+            </div>
+
+            <!-- Carousel Controls -->
+            <button
+                id="prev-slide"
+                class="absolute left-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                 >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <button
+                id="next-slide"
+                class="absolute right-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+
+            <!-- Indicators -->
+            <div
+                id="carousel-dots"
+                class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+            >
+                <!-- Dots will be injected here -->
             </div>
         </div>
 
@@ -64,11 +118,10 @@
 
             <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
                 <p
+                    id="modal-description"
                     class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-lg"
                 >
-                    This is a placeholder for the project description. Detailed
-                    information about the project, its goals, and the
-                    technologies used will appear here.
+                    Project description goes here.
                 </p>
 
                 <h4
@@ -76,20 +129,7 @@
                 >
                     Technologies
                 </h4>
-                <div class="flex flex-wrap gap-2 mb-10" id="modal-tags">
-                    <span
-                        class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase"
-                        >React</span
-                    >
-                    <span
-                        class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase"
-                        >Tailwind</span
-                    >
-                    <span
-                        class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase"
-                        >Astro</span
-                    >
-                </div>
+                <div class="flex flex-wrap gap-2 mb-10" id="modal-tags"></div>
             </div>
 
             <!-- Action Buttons -->
@@ -115,13 +155,26 @@
     </div>
 </div>
 
+<script
+    define:vars={{
+        imageMap: Object.fromEntries(
+            Object.entries(images).map(([path, data]) => [
+                path.split("/").pop(),
+                data.default.src,
+            ])
+        ),
+    }}
+>
+    window.PROJECT_ASSETS = imageMap;
+</script>
+
 <script>
     const modal = document.getElementById("project-modal");
     const backdrop = document.getElementById("modal-backdrop");
     const content = document.getElementById("modal-content");
     const closeBtn = document.getElementById("close-modal");
     const titleEl = document.getElementById("modal-title");
-    const descriptionEl = document.querySelector("#modal-content p");
+    const descriptionEl = document.getElementById("modal-description");
     const tagsContainer = document.getElementById("modal-tags");
     const repoLinkEl = document.getElementById(
         "modal-repo-link"
@@ -130,6 +183,31 @@
         "modal-demo-link"
     ) as HTMLAnchorElement;
 
+    const carouselTrack = document.getElementById("modal-carousel-track");
+    const prevBtn = document.getElementById("prev-slide");
+    const nextBtn = document.getElementById("next-slide");
+    const dotsContainer = document.getElementById("carousel-dots");
+
+    let currentSlide = 0;
+    let totalSlides = 0;
+
+    function updateCarousel() {
+        if (!carouselTrack) return;
+        carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+        // Update dots
+        const dots = dotsContainer?.querySelectorAll(".carousel-dot");
+        dots?.forEach((dot, idx) => {
+            if (idx === currentSlide) {
+                dot.classList.add("bg-blue-600", "w-6");
+                dot.classList.remove("bg-white/40", "w-2");
+            } else {
+                dot.classList.remove("bg-blue-600", "w-6");
+                dot.classList.add("bg-white/40", "w-2");
+            }
+        });
+    }
+
     function openModal(data: {
         title: string;
         href: string;
@@ -137,6 +215,7 @@
         demoUrl: string;
         description: string;
         technologies: string[];
+        images: string[];
     }) {
         if (
             !modal ||
@@ -145,7 +224,9 @@
             !repoLinkEl ||
             !demoLinkEl ||
             !descriptionEl ||
-            !tagsContainer
+            !tagsContainer ||
+            !carouselTrack ||
+            !dotsContainer
         )
             return;
 
@@ -153,6 +234,7 @@
         descriptionEl.textContent =
             data.description || "No description available.";
 
+        // Buttons
         if (data.repoUrl && data.repoUrl !== "#" && data.repoUrl !== "") {
             repoLinkEl.href = data.repoUrl;
             repoLinkEl.classList.remove("hidden");
@@ -167,18 +249,68 @@
             demoLinkEl.classList.add("hidden");
         }
 
-        // Update technology tags
+        // Tags
         tagsContainer.innerHTML = "";
-        if (data.technologies && data.technologies.length > 0) {
-            data.technologies.forEach((tech) => {
-                const tag = document.createElement("span");
-                tag.className =
-                    "px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase";
-                tag.textContent = tech;
-                tagsContainer.appendChild(tag);
+        data.technologies.forEach((tech) => {
+            const tag = document.createElement("span");
+            tag.className =
+                "px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase";
+            tag.textContent = tech;
+            tagsContainer.appendChild(tag);
+        });
+
+        // Carousel
+        carouselTrack.innerHTML = "";
+        dotsContainer.innerHTML = "";
+        currentSlide = 0;
+        totalSlides = data.images.length;
+
+        if (totalSlides === 0) {
+            // Placeholder if no images
+            carouselTrack.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-400 font-heading uppercase font-black text-6xl opacity-10 flex-shrink-0">Project View</div>`;
+            prevBtn?.classList.add("hidden");
+            nextBtn?.classList.add("hidden");
+        } else {
+            data.images.forEach((imgName, idx) => {
+                const slide = document.createElement("div");
+                slide.className = "w-full h-full flex-shrink-0 relative";
+
+                const img = document.createElement("img");
+                // Use the injected project assets map to get the processed URL
+                const assetUrl = (window as any).PROJECT_ASSETS
+                    ? (window as any).PROJECT_ASSETS[imgName]
+                    : `/src/assets/${imgName}`;
+                img.src = assetUrl;
+                img.alt = `${data.title} slide ${idx}`;
+                img.className = "w-full h-full object-cover";
+
+                slide.appendChild(img);
+                carouselTrack.appendChild(slide);
+
+                // Add dot
+                const dot = document.createElement("button");
+                dot.className = `carousel-dot h-2 transition-all duration-300 rounded-full ${
+                    idx === 0 ? "bg-blue-600 w-6" : "bg-white/40 w-2"
+                }`;
+                dot.addEventListener("click", () => {
+                    currentSlide = idx;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
             });
+
+            if (totalSlides > 1) {
+                prevBtn?.classList.remove("hidden");
+                nextBtn?.classList.remove("hidden");
+            } else {
+                prevBtn?.classList.add("hidden");
+                nextBtn?.classList.add("hidden");
+            }
         }
 
+        updateCarousel();
+
+        // Show Modal
         modal.classList.remove("opacity-0", "pointer-events-none");
         modal.classList.add("opacity-100");
         content.classList.remove("scale-95");
@@ -188,7 +320,6 @@
 
     function closeModal() {
         if (!modal || !content) return;
-
         modal.classList.remove("opacity-100");
         modal.classList.add("opacity-0", "pointer-events-none");
         content.classList.remove("scale-100");
@@ -196,16 +327,26 @@
         document.body.style.overflow = "";
     }
 
-    backdrop?.addEventListener("click", closeModal);
-    closeBtn?.addEventListener("click", closeModal);
-
-    // Listen for custom event
-    window.addEventListener("open-project-modal", (e: any) => {
-        openModal(e.detail);
+    prevBtn?.addEventListener("click", () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
     });
 
-    // Close on Escape
+    nextBtn?.addEventListener("click", () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    });
+
+    backdrop?.addEventListener("click", closeModal);
+    closeBtn?.addEventListener("click", closeModal);
+    window.addEventListener("open-project-modal", (e: any) =>
+        openModal(e.detail)
+    );
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeModal();
+        if (e.key === "ArrowLeft" && !modal?.classList.contains("opacity-0"))
+            prevBtn?.click();
+        if (e.key === "ArrowRight" && !modal?.classList.contains("opacity-0"))
+            nextBtn?.click();
     });
 </script>
