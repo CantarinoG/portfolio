@@ -200,12 +200,12 @@
             const isActive = link.getAttribute("href") === `#${id}`;
             const isMobile = link.classList.contains("mobile-nav-link");
 
-            link.classList.toggle("text-blue-600", isActive);
+            link.classList.toggle("text-blue-500", isActive);
             link.classList.toggle("text-gray-900", !isActive);
             link.classList.toggle("dark:text-gray-100", !isActive);
 
             if (!isMobile) {
-              link.classList.toggle("border-blue-600", isActive);
+              link.classList.toggle("border-blue-500", isActive);
               link.classList.toggle("border-transparent", !isActive);
             }
           });

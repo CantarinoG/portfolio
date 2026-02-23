@@ -59,7 +59,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                 id="modal-carousel-track"
                 class="absolute inset-0 flex transition-transform duration-500 ease-out"
             >
-                <!-- Images will be injected here -->
+                <!-- Images -->
             </div>
 
             <!-- Carousel Controls -->
@@ -107,7 +107,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                 id="carousel-dots"
                 class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2"
             >
-                <!-- Dots will be injected here -->
             </div>
         </div>
 
@@ -130,11 +129,11 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                     Project description goes here.
                 </p>
 
-                <h4
+                <h3
                     class="font-heading font-bold text-xs uppercase tracking-widest text-blue-600 dark:text-blue-500 mb-3"
                 >
                     Technologies
-                </h4>
+                </h3>
                 <div class="flex flex-wrap gap-2 mb-10" id="modal-tags"></div>
             </div>
 
@@ -204,7 +203,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
         if (!carouselTrack) return;
         carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-        // Update dots
         const dots = dotsContainer?.querySelectorAll(".carousel-dot");
         dots?.forEach((dot, idx) => {
             if (idx === currentSlide) {
@@ -245,7 +243,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
         descriptionEl.textContent =
             data.description || "No description available.";
 
-        // Buttons
         if (data.repoUrl && data.repoUrl !== "#" && data.repoUrl !== "") {
             repoLinkEl.href = data.repoUrl;
             repoLinkEl.classList.remove("hidden");
@@ -293,7 +290,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                 );
 
                 const img = document.createElement("img");
-                // Use the injected project assets map to get the processed URL
                 const assetUrl = (window as any).PROJECT_ASSETS
                     ? (window as any).PROJECT_ASSETS[imgName]
                     : `/src/assets/${imgName}`;
@@ -304,7 +300,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
                 slide.appendChild(img);
                 carouselTrack.appendChild(slide);
 
-                // Add dot
                 const dot = document.createElement("button");
                 dot.className = `carousel-dot h-2 transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 ${
                     idx === 0 ? "bg-blue-600 w-6" : "bg-white/40 w-2"
@@ -335,7 +330,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
         content.classList.add("scale-100");
         document.body.style.overflow = "hidden";
 
-        // Focus management
         setTimeout(() => {
             const focusable = content.querySelectorAll(
                 focusableElementsSelector
@@ -359,7 +353,6 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
         }
     }
 
-    // Modal Events & Focus Trapping
     window.addEventListener("keydown", (e) => {
         if (modal?.classList.contains("opacity-0")) return;
 
