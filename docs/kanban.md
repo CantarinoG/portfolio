@@ -3,7 +3,6 @@ kanban
   stage1[Backlog]
     card29[Add README]
   stage2[In Progress]
-    card20[Deploy via Github Pages]
   stage3[Done]
     card16[Implement animations]
     card1[Set up Astro environment]
@@ -25,4 +24,5 @@ kanban
     card25[Add projects]
     card23[Optimize resposiveness]
     card18[Research performance optimization feasibility]
+    card20[Deploy via Github Pages]
 ```
