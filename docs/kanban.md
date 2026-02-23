@@ -1,7 +1,6 @@
 ```mermaid
 kanban
   stage1[Backlog]
-    card29[Add README]
   stage2[In Progress]
   stage3[Done]
     card16[Implement animations]
@@ -22,7 +21,8 @@ kanban
     card17[Research SEO optimization feasibility]
     card19[Research accessibility optimization feasibility]
     card25[Add projects]
-    card23[Optimize resposiveness]
+     card23[Optimize resposiveness]
     card18[Research performance optimization feasibility]
     card20[Deploy via Github Pages]
+    card29[Add README]
 ```
