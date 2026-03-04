@@ -1,66 +1,49 @@
 [
-    {
-        "title": "Flashcard Pets",
-        "description": "Flashcard Pets is a gamified educational mobile application that transforms traditional studying into an engaging pet-collection experience. By leveraging a custom implementation of the SM2 spaced repetition algorithm, the app ensures optimal knowledge retention while rewarding consistent study habits. Users earn in-game coins to adopt and evolve unique digital pets, turning effective learning into a rewarding daily habit.",
-        "imageSrc": "flashcard-pets/0.png",
-        "hoverImages": [
-            "flashcard-pets/0.png",
-            "flashcard-pets/1.jpg",
-            "flashcard-pets/2.jpg",
-            "flashcard-pets/3.jpg",
-            "flashcard-pets/4.jpg",
-            "flashcard-pets/5.jpg"
-        ],
-        "technologies": [
-            "Dart",
-            "Flutter",
-            "Firebase",
-            "SQLite"
-        ],
-        "href": "#flashcard_pets",
-        "repoUrl": "https://github.com/CantarinoG/flashcard-pets",
-        "demoUrl": ""
-    },
-    {
-        "title": "Coming soon...",
-        "description": "",
-        "imageSrc": "",
-        "hoverImages": [
-            ""
-        ],
-        "technologies": [
-            ""
-        ],
-        "href": "#",
-        "repoUrl": "",
-        "demoUrl": ""
-    },
-    {
-        "title": "Coming soon...",
-        "description": "",
-        "imageSrc": "",
-        "hoverImages": [
-            ""
-        ],
-        "technologies": [
-            ""
-        ],
-        "href": "#",
-        "repoUrl": "",
-        "demoUrl": ""
-    },
-    {
-        "title": "Coming soon...",
-        "description": "",
-        "imageSrc": "",
-        "hoverImages": [
-            ""
-        ],
-        "technologies": [
-            ""
-        ],
-        "href": "#",
-        "repoUrl": "",
-        "demoUrl": ""
-    }
+  {
+    "title": "Flashcard Pets",
+    "description": "Flashcard Pets is a gamified educational mobile application that transforms traditional studying into an engaging pet-collection experience. By leveraging a custom implementation of the SM2 spaced repetition algorithm, the app ensures optimal knowledge retention while rewarding consistent study habits. Users earn in-game coins to adopt and evolve unique digital pets, turning effective learning into a rewarding daily habit.",
+    "imageSrc": "flashcard-pets/0.png",
+    "hoverImages": [
+      "flashcard-pets/0.png",
+      "flashcard-pets/1.jpg",
+      "flashcard-pets/2.jpg",
+      "flashcard-pets/3.jpg",
+      "flashcard-pets/4.jpg",
+      "flashcard-pets/5.jpg"
+    ],
+    "technologies": ["Dart", "Flutter", "Firebase", "SQLite"],
+    "href": "#flashcard_pets",
+    "repoUrl": "https://github.com/CantarinoG/flashcard-pets",
+    "demoUrl": ""
+  },
+  {
+    "title": "Coming soon...",
+    "description": "",
+    "imageSrc": "",
+    "hoverImages": [""],
+    "technologies": [""],
+    "href": "#",
+    "repoUrl": "",
+    "demoUrl": ""
+  },
+  {
+    "title": "Coming soon...",
+    "description": "",
+    "imageSrc": "",
+    "hoverImages": [""],
+    "technologies": [""],
+    "href": "#",
+    "repoUrl": "",
+    "demoUrl": ""
+  },
+  {
+    "title": "Coming soon...",
+    "description": "",
+    "imageSrc": "",
+    "hoverImages": [""],
+    "technologies": [""],
+    "href": "#",
+    "repoUrl": "",
+    "demoUrl": ""
+  }
 ]

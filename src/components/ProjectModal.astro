@@ -1,401 +1,398 @@
 ---
 interface ImageMetadata {
-    src: string;
-    width: number;
-    height: number;
-    format: string;
+  src: string;
+  width: number;
+  height: number;
+  format: string;
 }
 
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/**/*.{jpeg,jpg,png,gif}",
-    { eager: true }
+  '/src/assets/**/*.{jpeg,jpg,png,gif}',
+  { eager: true },
 );
 ---
 
 <div
-    id="project-modal"
-    class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modal-title"
+  id="project-modal"
+  class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
 >
-    <!-- Backdrop -->
-    <div
-        class="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        id="modal-backdrop"
+  <!-- Backdrop -->
+  <div
+    class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+    id="modal-backdrop"
+  >
+  </div>
+
+  <!-- Modal Content -->
+  <div
+    class="relative w-full max-w-6xl h-full max-h-[90vh] bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col md:flex-row"
+    id="modal-content"
+  >
+    <button
+      id="close-modal"
+      class="absolute top-6 right-6 z-30 p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-white"
+      aria-label="Close modal"
     >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-gray-800 dark:text-gray-200"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <!-- Image Carousel Section -->
+    <div
+      class="md:w-3/5 bg-gray-50 dark:bg-gray-800 relative group/carousel flex items-center justify-center min-h-[300px] md:min-h-full overflow-hidden"
+    >
+      <div
+        id="modal-carousel-track"
+        class="absolute inset-0 flex transition-transform duration-500 ease-out"
+      >
+        <!-- Images -->
+      </div>
+
+      <!-- Carousel Controls -->
+      <button
+        id="prev-slide"
+        class="absolute left-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+        aria-label="Previous slide"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button
+        id="next-slide"
+        class="absolute right-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+        aria-label="Next slide"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+
+      <!-- Indicators -->
+      <div
+        id="carousel-dots"
+        class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2"
+      >
+      </div>
     </div>
 
-    <!-- Modal Content -->
-    <div
-        class="relative w-full max-w-6xl h-full max-h-[90vh] bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col md:flex-row"
-        id="modal-content"
-    >
-        <button
-            id="close-modal"
-            class="absolute top-6 right-6 z-30 p-3 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-600 dark:focus:ring-white"
-            aria-label="Close modal"
+    <!-- Info Section -->
+    <div class="md:w-2/5 p-12 flex flex-col h-full bg-white dark:bg-gray-900">
+      <h2
+        id="modal-title"
+        class="font-heading font-black text-4xl text-blue-600 dark:text-blue-500 uppercase tracking-tighter mb-6 leading-[0.9]"
+      >
+        Project Title
+      </h2>
+
+      <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
+        <p
+          id="modal-description"
+          class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-lg"
         >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6 text-gray-800 dark:text-gray-200"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
+          Project description goes here.
+        </p>
 
-        <!-- Image Carousel Section -->
-        <div
-            class="md:w-3/5 bg-gray-50 dark:bg-gray-800 relative group/carousel flex items-center justify-center min-h-[300px] md:min-h-full overflow-hidden"
+        <h3
+          class="font-heading font-bold text-xs uppercase tracking-widest text-blue-600 dark:text-blue-500 mb-3"
         >
-            <div
-                id="modal-carousel-track"
-                class="absolute inset-0 flex transition-transform duration-500 ease-out"
-            >
-                <!-- Images -->
-            </div>
+          Technologies
+        </h3>
+        <div class="flex flex-wrap gap-2 mb-10" id="modal-tags"></div>
+      </div>
 
-            <!-- Carousel Controls -->
-            <button
-                id="prev-slide"
-                class="absolute left-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
-                aria-label="Previous slide"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-            <button
-                id="next-slide"
-                class="absolute right-4 z-20 p-2 rounded-full bg-blue-600/80 backdrop-blur-md opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-blue-700 hover:scale-110 text-white cursor-pointer shadow-lg focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
-                aria-label="Next slide"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
-
-            <!-- Indicators -->
-            <div
-                id="carousel-dots"
-                class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2"
-            >
-            </div>
-        </div>
-
-        <!-- Info Section -->
-        <div
-            class="md:w-2/5 p-12 flex flex-col h-full bg-white dark:bg-gray-900"
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 mt-8">
+        <a
+          href="#"
+          id="modal-repo-link"
+          target="_blank"
+          class="flex-1 rounded-full bg-blue-600 dark:bg-white px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white dark:text-blue-600 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-600 dark:border-white text-center"
         >
-            <h2
-                id="modal-title"
-                class="font-heading font-black text-4xl text-blue-600 dark:text-blue-500 uppercase tracking-tighter mb-6 leading-[0.9]"
-            >
-                Project Title
-            </h2>
-
-            <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
-                <p
-                    id="modal-description"
-                    class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-lg"
-                >
-                    Project description goes here.
-                </p>
-
-                <h3
-                    class="font-heading font-bold text-xs uppercase tracking-widest text-blue-600 dark:text-blue-500 mb-3"
-                >
-                    Technologies
-                </h3>
-                <div class="flex flex-wrap gap-2 mb-10" id="modal-tags"></div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                <a
-                    href="#"
-                    id="modal-repo-link"
-                    target="_blank"
-                    class="flex-1 rounded-full bg-blue-600 dark:bg-white px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white dark:text-blue-600 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-600 dark:border-white text-center"
-                >
-                    Visit Repo
-                </a>
-                <a
-                    href="#"
-                    id="modal-demo-link"
-                    target="_blank"
-                    class="flex-1 rounded-full bg-blue-600 dark:bg-white px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white dark:text-blue-600 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-600 dark:border-white text-center"
-                >
-                    Visit Demo
-                </a>
-            </div>
-        </div>
+          Visit Repo
+        </a>
+        <a
+          href="#"
+          id="modal-demo-link"
+          target="_blank"
+          class="flex-1 rounded-full bg-blue-600 dark:bg-white px-6 py-3 font-heading text-sm font-bold uppercase tracking-wider text-white dark:text-blue-600 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-blue-600 dark:border-white text-center"
+        >
+          Visit Demo
+        </a>
+      </div>
     </div>
+  </div>
 </div>
 
 <script
-    define:vars={{
-        imageMap: Object.fromEntries(
-            Object.entries(images).map(([path, data]) => [
-                path.replace("/src/assets/", ""),
-                data.default.src,
-            ])
-        ),
-    }}
+  define:vars={{
+    imageMap: Object.fromEntries(
+      Object.entries(images).map(([path, data]) => [
+        path.replace('/src/assets/', ''),
+        (data as { default: ImageMetadata }).default.src,
+      ]),
+    ),
+  }}
 >
-    window.PROJECT_ASSETS = imageMap;
+  /** @type {Record<string, string>} */
+  const assets = imageMap;
+  window.PROJECT_ASSETS = assets;
 </script>
 
 <script>
-    const modal = document.getElementById("project-modal");
-    const backdrop = document.getElementById("modal-backdrop");
-    const content = document.getElementById("modal-content");
-    const closeBtn = document.getElementById("close-modal");
-    const titleEl = document.getElementById("modal-title");
-    const descriptionEl = document.getElementById("modal-description");
-    const tagsContainer = document.getElementById("modal-tags");
-    const repoLinkEl = document.getElementById(
-        "modal-repo-link"
-    ) as HTMLAnchorElement;
-    const demoLinkEl = document.getElementById(
-        "modal-demo-link"
-    ) as HTMLAnchorElement;
+  const modal = document.getElementById('project-modal');
+  const backdrop = document.getElementById('modal-backdrop');
+  const content = document.getElementById('modal-content');
+  const closeBtn = document.getElementById('close-modal');
+  const titleEl = document.getElementById('modal-title');
+  const descriptionEl = document.getElementById('modal-description');
+  const tagsContainer = document.getElementById('modal-tags');
+  const repoLinkEl = document.getElementById(
+    'modal-repo-link',
+  ) as HTMLAnchorElement;
+  const demoLinkEl = document.getElementById(
+    'modal-demo-link',
+  ) as HTMLAnchorElement;
 
-    const carouselTrack = document.getElementById("modal-carousel-track");
-    const prevBtn = document.getElementById("prev-slide");
-    const nextBtn = document.getElementById("next-slide");
-    const dotsContainer = document.getElementById("carousel-dots");
+  const carouselTrack = document.getElementById('modal-carousel-track');
+  const prevBtn = document.getElementById('prev-slide');
+  const nextBtn = document.getElementById('next-slide');
+  const dotsContainer = document.getElementById('carousel-dots');
 
-    let currentSlide = 0;
-    let totalSlides = 0;
-    let lastFocusedElement: HTMLElement | null = null;
-    const focusableElementsSelector =
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  let currentSlide = 0;
+  let totalSlides = 0;
+  let lastFocusedElement: HTMLElement | null = null;
+  const focusableElementsSelector =
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-    function updateCarousel() {
-        if (!carouselTrack) return;
-        carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+  interface ProjectData {
+    title: string;
+    href: string;
+    repoUrl: string;
+    demoUrl: string;
+    description: string;
+    technologies: string[];
+    images: string[];
+  }
 
-        const dots = dotsContainer?.querySelectorAll(".carousel-dot");
-        dots?.forEach((dot, idx) => {
-            if (idx === currentSlide) {
-                dot.classList.add("bg-blue-600", "w-6");
-                dot.classList.remove("bg-white/40", "w-2");
-            } else {
-                dot.classList.remove("bg-blue-600", "w-6");
-                dot.classList.add("bg-white/40", "w-2");
-            }
+  function updateCarousel() {
+    if (!carouselTrack) return;
+    carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    const dots = dotsContainer?.querySelectorAll('.carousel-dot');
+    dots?.forEach((dot, idx) => {
+      if (idx === currentSlide) {
+        dot.classList.add('bg-blue-600', 'w-6');
+        dot.classList.remove('bg-white/40', 'w-2');
+      } else {
+        dot.classList.remove('bg-blue-600', 'w-6');
+        dot.classList.add('bg-white/40', 'w-2');
+      }
+    });
+  }
+
+  function openModal(data: ProjectData) {
+    if (
+      !modal ||
+      !content ||
+      !titleEl ||
+      !repoLinkEl ||
+      !demoLinkEl ||
+      !descriptionEl ||
+      !tagsContainer ||
+      !carouselTrack ||
+      !dotsContainer
+    )
+      return;
+
+    lastFocusedElement = document.activeElement as HTMLElement;
+
+    titleEl.textContent = data.title;
+    descriptionEl.textContent = data.description || 'No description available.';
+
+    if (data.repoUrl && data.repoUrl !== '#' && data.repoUrl !== '') {
+      repoLinkEl.href = data.repoUrl;
+      repoLinkEl.classList.remove('hidden');
+    } else {
+      repoLinkEl.classList.add('hidden');
+    }
+
+    if (data.demoUrl && data.demoUrl !== '#' && data.demoUrl !== '') {
+      demoLinkEl.href = data.demoUrl;
+      demoLinkEl.classList.remove('hidden');
+    } else {
+      demoLinkEl.classList.add('hidden');
+    }
+
+    // Tags
+    tagsContainer.innerHTML = '';
+    data.technologies.forEach((tech) => {
+      const tag = document.createElement('span');
+      tag.className =
+        'px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase';
+      tag.textContent = tech;
+      tagsContainer.appendChild(tag);
+    });
+
+    // Carousel
+    carouselTrack.innerHTML = '';
+    dotsContainer.innerHTML = '';
+    currentSlide = 0;
+    totalSlides = data.images.length;
+
+    if (totalSlides === 0) {
+      // Placeholder if no images
+      carouselTrack.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-400 font-heading uppercase font-black text-6xl opacity-10 flex-shrink-0">Project View</div>`;
+      prevBtn?.classList.add('hidden');
+      nextBtn?.classList.add('hidden');
+    } else {
+      data.images.forEach((imgName, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'w-full h-full flex-shrink-0 relative';
+        slide.setAttribute('role', 'group');
+        slide.setAttribute('aria-roledescription', 'slide');
+        slide.setAttribute('aria-label', `${idx + 1} of ${totalSlides}`);
+
+        const img = document.createElement('img');
+        const projectAssets = (
+          window as Window & { PROJECT_ASSETS?: Record<string, string> }
+        ).PROJECT_ASSETS;
+        const assetUrl = projectAssets
+          ? projectAssets[imgName]
+          : `/src/assets/${imgName}`;
+        img.src = assetUrl;
+        img.alt = `${data.title} slide ${idx + 1}`;
+        img.className = 'w-full h-full object-cover';
+
+        slide.appendChild(img);
+        carouselTrack.appendChild(slide);
+
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot h-2 transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 ${
+          idx === 0 ? 'bg-blue-600 w-6' : 'bg-white/40 w-2'
+        }`;
+        dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+        dot.addEventListener('click', () => {
+          currentSlide = idx;
+          updateCarousel();
         });
+        dotsContainer.appendChild(dot);
+      });
+
+      if (totalSlides > 1) {
+        prevBtn?.classList.remove('hidden');
+        nextBtn?.classList.remove('hidden');
+      } else {
+        prevBtn?.classList.add('hidden');
+        nextBtn?.classList.add('hidden');
+      }
     }
 
-    function openModal(data: {
-        title: string;
-        href: string;
-        repoUrl: string;
-        demoUrl: string;
-        description: string;
-        technologies: string[];
-        images: string[];
-    }) {
-        if (
-            !modal ||
-            !content ||
-            !titleEl ||
-            !repoLinkEl ||
-            !demoLinkEl ||
-            !descriptionEl ||
-            !tagsContainer ||
-            !carouselTrack ||
-            !dotsContainer
-        )
-            return;
+    updateCarousel();
 
-        lastFocusedElement = document.activeElement as HTMLElement;
+    // Show Modal
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('opacity-100');
+    content.classList.remove('scale-95');
+    content.classList.add('scale-100');
+    document.body.style.overflow = 'hidden';
 
-        titleEl.textContent = data.title;
-        descriptionEl.textContent =
-            data.description || "No description available.";
+    setTimeout(() => {
+      const focusable = content.querySelectorAll(focusableElementsSelector);
+      if (focusable.length > 0) {
+        (focusable[0] as HTMLElement).focus();
+      }
+    }, 300);
+  }
 
-        if (data.repoUrl && data.repoUrl !== "#" && data.repoUrl !== "") {
-            repoLinkEl.href = data.repoUrl;
-            repoLinkEl.classList.remove("hidden");
-        } else {
-            repoLinkEl.classList.add("hidden");
+  function closeModal() {
+    if (!modal || !content) return;
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    content.classList.remove('scale-100');
+    content.classList.add('scale-95');
+    document.body.style.overflow = '';
+
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
+    }
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (modal?.classList.contains('opacity-0')) return;
+
+    if (e.key === 'Tab') {
+      const focusable = content!.querySelectorAll(focusableElementsSelector);
+      const first = focusable[0] as HTMLElement;
+      const last = focusable[focusable.length - 1] as HTMLElement;
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
         }
-
-        if (data.demoUrl && data.demoUrl !== "#" && data.demoUrl !== "") {
-            demoLinkEl.href = data.demoUrl;
-            demoLinkEl.classList.remove("hidden");
-        } else {
-            demoLinkEl.classList.add("hidden");
+      } else {
+        // Tab
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
-
-        // Tags
-        tagsContainer.innerHTML = "";
-        data.technologies.forEach((tech) => {
-            const tag = document.createElement("span");
-            tag.className =
-                "px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold rounded-full uppercase";
-            tag.textContent = tech;
-            tagsContainer.appendChild(tag);
-        });
-
-        // Carousel
-        carouselTrack.innerHTML = "";
-        dotsContainer.innerHTML = "";
-        currentSlide = 0;
-        totalSlides = data.images.length;
-
-        if (totalSlides === 0) {
-            // Placeholder if no images
-            carouselTrack.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-400 font-heading uppercase font-black text-6xl opacity-10 flex-shrink-0">Project View</div>`;
-            prevBtn?.classList.add("hidden");
-            nextBtn?.classList.add("hidden");
-        } else {
-            data.images.forEach((imgName, idx) => {
-                const slide = document.createElement("div");
-                slide.className = "w-full h-full flex-shrink-0 relative";
-                slide.setAttribute("role", "group");
-                slide.setAttribute("aria-roledescription", "slide");
-                slide.setAttribute(
-                    "aria-label",
-                    `${idx + 1} of ${totalSlides}`
-                );
-
-                const img = document.createElement("img");
-                const assetUrl = (window as any).PROJECT_ASSETS
-                    ? (window as any).PROJECT_ASSETS[imgName]
-                    : `/src/assets/${imgName}`;
-                img.src = assetUrl;
-                img.alt = `${data.title} slide ${idx + 1}`;
-                img.className = "w-full h-full object-cover";
-
-                slide.appendChild(img);
-                carouselTrack.appendChild(slide);
-
-                const dot = document.createElement("button");
-                dot.className = `carousel-dot h-2 transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 ${
-                    idx === 0 ? "bg-blue-600 w-6" : "bg-white/40 w-2"
-                }`;
-                dot.setAttribute("aria-label", `Go to slide ${idx + 1}`);
-                dot.addEventListener("click", () => {
-                    currentSlide = idx;
-                    updateCarousel();
-                });
-                dotsContainer.appendChild(dot);
-            });
-
-            if (totalSlides > 1) {
-                prevBtn?.classList.remove("hidden");
-                nextBtn?.classList.remove("hidden");
-            } else {
-                prevBtn?.classList.add("hidden");
-                nextBtn?.classList.add("hidden");
-            }
-        }
-
-        updateCarousel();
-
-        // Show Modal
-        modal.classList.remove("opacity-0", "pointer-events-none");
-        modal.classList.add("opacity-100");
-        content.classList.remove("scale-95");
-        content.classList.add("scale-100");
-        document.body.style.overflow = "hidden";
-
-        setTimeout(() => {
-            const focusable = content.querySelectorAll(
-                focusableElementsSelector
-            );
-            if (focusable.length > 0) {
-                (focusable[0] as HTMLElement).focus();
-            }
-        }, 300);
+      }
     }
 
-    function closeModal() {
-        if (!modal || !content) return;
-        modal.classList.remove("opacity-100");
-        modal.classList.add("opacity-0", "pointer-events-none");
-        content.classList.remove("scale-100");
-        content.classList.add("scale-95");
-        document.body.style.overflow = "";
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') prevBtn?.click();
+    if (e.key === 'ArrowRight') nextBtn?.click();
+  });
 
-        if (lastFocusedElement) {
-            lastFocusedElement.focus();
-        }
-    }
+  prevBtn?.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  });
 
-    window.addEventListener("keydown", (e) => {
-        if (modal?.classList.contains("opacity-0")) return;
+  nextBtn?.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateCarousel();
+  });
 
-        if (e.key === "Tab") {
-            const focusable = content!.querySelectorAll(
-                focusableElementsSelector
-            );
-            const first = focusable[0] as HTMLElement;
-            const last = focusable[focusable.length - 1] as HTMLElement;
-
-            if (e.shiftKey) {
-                // Shift + Tab
-                if (document.activeElement === first) {
-                    e.preventDefault();
-                    last.focus();
-                }
-            } else {
-                // Tab
-                if (document.activeElement === last) {
-                    e.preventDefault();
-                    first.focus();
-                }
-            }
-        }
-
-        if (e.key === "Escape") closeModal();
-        if (e.key === "ArrowLeft") prevBtn?.click();
-        if (e.key === "ArrowRight") nextBtn?.click();
-    });
-
-    prevBtn?.addEventListener("click", () => {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-    });
-
-    nextBtn?.addEventListener("click", () => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateCarousel();
-    });
-
-    backdrop?.addEventListener("click", closeModal);
-    closeBtn?.addEventListener("click", closeModal);
-    window.addEventListener("open-project-modal", (e: any) =>
-        openModal(e.detail)
-    );
+  backdrop?.addEventListener('click', closeModal);
+  closeBtn?.addEventListener('click', closeModal);
+  window.addEventListener('open-project-modal', (e: Event) =>
+    openModal((e as CustomEvent<ProjectData>).detail),
+  );
 </script>

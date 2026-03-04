@@ -56,10 +56,12 @@ Check out the live version here: [https://cantarinog.github.io/portfolio/](https
 ## ⚙️ Local Development
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/) (v18.14.1 or higher)
 - [npm](https://www.npmjs.com/)
 
 ### Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/CantarinoG/portfolio.git
@@ -74,17 +76,19 @@ Check out the live version here: [https://cantarinog.github.io/portfolio/](https
    ```
 
 ### Commands
-| Command | Action |
-| :--- | :--- |
-| `npm run dev` | Starts local dev server at `localhost:4321` |
-| `npm run build` | Builds the production-ready site into `dist/` |
-| `npm run preview` | Previews the local build |
+
+| Command           | Action                                        |
+| :---------------- | :-------------------------------------------- |
+| `npm run dev`     | Starts local dev server at `localhost:4321`   |
+| `npm run build`   | Builds the production-ready site into `dist/` |
+| `npm run preview` | Previews the local build                      |
 
 ---
 
 ## 🤖 CI/CD Workflow
 
 The project uses **GitHub Actions** for automated deployment.
+
 - **Every push to `main`** triggers a build job.
 - Upon a successful build, the site is automatically deployed to **GitHub Pages**.
 - Site configuration is handled via `astro.config.mjs` using the `site` and `base` properties.

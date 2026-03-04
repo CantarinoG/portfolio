@@ -8,6 +8,6 @@ export default defineConfig({
   site: 'https://cantarinog.github.io',
   base: '/portfolio',
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+  },
 });
