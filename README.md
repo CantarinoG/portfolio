@@ -99,8 +99,13 @@ The project uses **GitHub Actions** for an automated two-stage pipeline:
     - Triggered on every **Push** (or Merge) to `main`.
     - Automatically builds and deploys the site to **GitHub Pages**.
 
-### Code Quality
-We use **ESLint** for catch logic errors and **Prettier** for consistent formatting. You can run these checks locally using the commands listed above.
+### Code Quality & Security
+We use a suite of tools to maintain a high-quality, secure codebase:
+- **ESLint**: Catches logic errors and bad patterns.
+- **Prettier**: Enforces consistent formatting.
+- **Astro Check & TSC**: Ensures full Type Safety across components and scripts.
+- **Dependabot**: Automatically keeps dependencies up to date.
+- **Lighthouse CI**: Audits every build for Performance, Accessibility, Best Practices, and SEO.
 
 ---
 
