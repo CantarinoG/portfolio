@@ -80,10 +80,11 @@ Check out the live version here: [https://cantarinog.github.io/portfolio/](https
 | Command           | Action                                        |
 | :---------------- | :-------------------------------------------- |
 | `npm run dev`     | Starts local dev server at `localhost:4321`   |
-| `npm run build`   | Builds the production-ready site into `dist/` |
+| `npm run build`        | Builds the production-ready site into `dist/` |
 | `npm run preview`      | Previews the local build                         |
 | `npm run lint`         | Runs ESLint to catch code errors                 |
 | `npm run format:check` | Checks if code follows Prettier styles           |
+| `npm run type-check`   | Runs Astro and TypeScript type checks            |
 
 ---
 

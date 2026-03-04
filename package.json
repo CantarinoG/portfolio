@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "type-check": "astro check && tsc --noEmit"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.0",
@@ -16,12 +17,14 @@
     "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.6",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^10.0.2",
     "eslint-plugin-astro": "^1.6.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1"
   }
 }
