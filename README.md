@@ -39,7 +39,7 @@ Check out the live version here: [https://cantarinog.github.io/portfolio/](https
 
 ```text
 /
-├── .github/workflows/    # CI/CD Deployment configurations
+├── .github/workflows/    # CI (Validation) & CD (Deployment) workflows
 ├── public/               # Static assets (favicons, etc.)
 ├── src/
 │   ├── assets/           # Project images and personal photos
@@ -81,17 +81,25 @@ Check out the live version here: [https://cantarinog.github.io/portfolio/](https
 | :---------------- | :-------------------------------------------- |
 | `npm run dev`     | Starts local dev server at `localhost:4321`   |
 | `npm run build`   | Builds the production-ready site into `dist/` |
-| `npm run preview` | Previews the local build                      |
+| `npm run preview`      | Previews the local build                         |
+| `npm run lint`         | Runs ESLint to catch code errors                 |
+| `npm run format:check` | Checks if code follows Prettier styles           |
 
 ---
 
-## 🤖 CI/CD Workflow
+The project uses **GitHub Actions** for an automated two-stage pipeline:
 
-The project uses **GitHub Actions** for automated deployment.
+1.  **CI (Validation)**:
+    - Triggered on every **Pull Request** to `main`.
+    - Runs linting, formatting checks, and a production build.
+    - Ensures code quality and prevents "broken" merges.
 
-- **Every push to `main`** triggers a build job.
-- Upon a successful build, the site is automatically deployed to **GitHub Pages**.
-- Site configuration is handled via `astro.config.mjs` using the `site` and `base` properties.
+2.  **CD (Deployment)**:
+    - Triggered on every **Push** (or Merge) to `main`.
+    - Automatically builds and deploys the site to **GitHub Pages**.
+
+### Code Quality
+We use **ESLint** for catch logic errors and **Prettier** for consistent formatting. You can run these checks locally using the commands listed above.
 
 ---
 
