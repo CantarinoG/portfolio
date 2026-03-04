@@ -77,14 +77,14 @@ Check out the live version here: [https://cantarinog.github.io/portfolio/](https
 
 ### Commands
 
-| Command           | Action                                        |
-| :---------------- | :-------------------------------------------- |
-| `npm run dev`     | Starts local dev server at `localhost:4321`   |
+| Command                | Action                                        |
+| :--------------------- | :-------------------------------------------- |
+| `npm run dev`          | Starts local dev server at `localhost:4321`   |
 | `npm run build`        | Builds the production-ready site into `dist/` |
-| `npm run preview`      | Previews the local build                         |
-| `npm run lint`         | Runs ESLint to catch code errors                 |
-| `npm run format:check` | Checks if code follows Prettier styles           |
-| `npm run type-check`   | Runs Astro and TypeScript type checks            |
+| `npm run preview`      | Previews the local build                      |
+| `npm run lint`         | Runs ESLint to catch code errors              |
+| `npm run format:check` | Checks if code follows Prettier styles        |
+| `npm run type-check`   | Runs Astro and TypeScript type checks         |
 
 ---
 
@@ -100,7 +100,9 @@ The project uses **GitHub Actions** for an automated two-stage pipeline:
     - Automatically builds and deploys the site to **GitHub Pages**.
 
 ### Code Quality & Security
+
 We use a suite of tools to maintain a high-quality, secure codebase:
+
 - **ESLint**: Catches logic errors and bad patterns.
 - **Prettier**: Enforces consistent formatting.
 - **Astro Check & TSC**: Ensures full Type Safety across components and scripts.
