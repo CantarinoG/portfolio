@@ -11,17 +11,39 @@
       "flashcard-pets/4.jpg",
       "flashcard-pets/5.jpg"
     ],
-    "technologies": ["Dart", "Flutter", "Firebase", "SQLite"],
+    "technologies": [
+      "Dart",
+      "Flutter",
+      "Firebase",
+      "SQLite"
+    ],
     "href": "#flashcard_pets",
     "repoUrl": "https://github.com/CantarinoG/flashcard-pets",
     "demoUrl": ""
   },
   {
-    "title": "Coming soon...",
-    "description": "",
-    "imageSrc": "",
-    "hoverImages": [""],
-    "technologies": [""],
+    "title": "LetsPlan",
+    "description": "LetsPlan is a modern, feature-rich calendar application designed to provide a Google Calendar-like experience with an intuitive drag-and-drop interface for seamless event management. Built with a robust SvelteKit frontend and a high-performance .NET 8 backend, the application offers core functionalities such as real-time event creation, editing, and deletion, all supported by a secure JWT-based authentication system and a color-coded organization system. The entire solution is containerized using Docker, ensuring a consistent and 'zero-configuration' setup across environments, while the interface remains highly responsive and accessible thanks to TailwindCSS 4 and DaisyUI, complete with integrated dark mode and smooth animations.",
+    "imageSrc": "letsplan/0.png",
+    "hoverImages": [
+      "letsplan/0.png",
+      "letsplan/1.jpg",
+      "letsplan/2.jpg",
+      "letsplan/3.jpg",
+      "letsplan/4.jpg"
+    ],
+    "technologies": [
+      "SvelteKit",
+      "TypeScript",
+      "TailwindCSS",
+      "DaisyUI",
+      "Playwright",
+      ".NET",
+      "C#",
+      "JWT",
+      "MongoDB",
+      "Docker"
+    ],
     "href": "#",
     "repoUrl": "",
     "demoUrl": ""
@@ -30,8 +52,12 @@
     "title": "Coming soon...",
     "description": "",
     "imageSrc": "",
-    "hoverImages": [""],
-    "technologies": [""],
+    "hoverImages": [
+      ""
+    ],
+    "technologies": [
+      ""
+    ],
     "href": "#",
     "repoUrl": "",
     "demoUrl": ""
@@ -40,8 +66,12 @@
     "title": "Coming soon...",
     "description": "",
     "imageSrc": "",
-    "hoverImages": [""],
-    "technologies": [""],
+    "hoverImages": [
+      ""
+    ],
+    "technologies": [
+      ""
+    ],
     "href": "#",
     "repoUrl": "",
     "demoUrl": ""
