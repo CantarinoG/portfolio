@@ -1,0 +1,27 @@
+* text=auto
+
+*.js       text
+*.mjs      text
+*.ts       text
+*.astro    text
+*.css      text
+*.json     text
+*.md       text
+*.html     text
+*.xml      text
+*.txt      text
+*.svg      text
+
+.gitignore    text
+.prettierrc   text
+.gitattributes text
+
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.ico      binary
+*.webp     binary
+*.pdf      binary
+
+src/data/** linguist-detectable=false
